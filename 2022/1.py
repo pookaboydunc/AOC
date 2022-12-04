@@ -49,21 +49,6 @@ Find the top three Elves carrying the most Calories. How many Calories are those
 
 '''
 
-""" input = 'input/1.txt'
-current = 0
-totals = []
-with open(input) as f:
-    for line in f.read().split("\n"):
-        if line == '':
-            totals.append(current)
-            current = 0
-            continue
-        current += int(line)
-totals.sort(reverse=True)
-print("Puzzle 1 - highest calorie count =", totals[0])
-print("Puzzle 2 - sum of top three calorie counts =", sum(totals[0:3]))
- """
-
 input = 'input/1.txt'
 
 with open(input) as f:

@@ -67,8 +67,8 @@ grouptotal = 0
 for line in lines:
     split = int(len(line)/2)
     total += sum([items.index(element) + 1 for element in set(line[:split]) & set(line[split:])])
-groups = [lines[i:i+3] for i in range(0, len(lines), 3)]
 
+groups = [lines[i:i+3] for i in range(0, len(lines), 3)]
 for group in groups:
     if len(group) == 3:
         grouptotal += sum([items.index(element) + 1 for element in set(group[0]) & set(group[1]) & set(group[2])])
