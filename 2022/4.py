@@ -57,16 +57,15 @@ In how many assignment pairs do the ranges overlap?
 '''
 
 input = 'input/4.txt'
-lines = open(input).read().split("\n")
-lines.pop(len(lines) - 1)
+assignments = open(input).read().split("\n")
+assignments.pop(len(assignments) - 1)
 total_subsets = 0
 total_intersections = 0
-ranges = [line.split(',') for  line in lines]
-sets = [sets for sets in ranges]
+assigments = [assignment.split(',') for  assignment in assignments]
 
-for s in sets:
-    r1 = [int(n) for n in s[0].split('-')]
-    r2 = [int(n) for n in s[1].split('-')]
+for sections in assigments:
+    r1 = [int(n) for n in sections[0].split('-')]
+    r2 = [int(n) for n in sections[1].split('-')]
     s1 = set(range(r1[0],r1[1]+1))
     s2 = set(range(r2[0],r2[1]+1))
     if s1.issubset(s2) or s2.issubset(s1):
