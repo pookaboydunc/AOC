@@ -58,7 +58,7 @@ In how many assignment pairs do the ranges overlap?
 
 input = 'input/4.txt'
 assignments = open(input).read().split("\n")
-assignments.pop(len(assignments) - 1)
+assignments.pop()
 total_subsets = 0
 total_intersections = 0
 assigments = [assignment.split(',') for  assignment in assignments]
