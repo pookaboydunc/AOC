@@ -105,7 +105,7 @@ lines = open(input).read().split('\n')
 drawing = lines[:8]
 instructions = [re.findall(r'[0-9]{1,2}',instruction) for instruction in lines[10:len(lines)-1]]
 p1 = init_stacks(9)
-p2_stacks = init_stacks(9)
+p2 = init_stacks(9)
 p1_out = ''
 p2_out = ''
 
@@ -115,7 +115,7 @@ for row in drawing:
         crate = row[i+1:i+2]
         if crate > '   ':
             p1[index].insert(0,crate)
-            p2_stacks[index].insert(0,crate)
+            p2[index].insert(0,crate)
 
 for i in instructions:
     from_stack = int(i[1])-1
@@ -123,8 +123,8 @@ for i in instructions:
     num = int(i[0])
     p1_from = p1[from_stack]
     p1_to = p1[to_stack]
-    p2_from = p2_stacks[from_stack]
-    p2_to = p2_stacks[to_stack]
+    p2_from = p2[from_stack]
+    p2_to = p2[to_stack]
     p2_to += p2_from[len(p2_from) - int(i[0]):]
     for n in range(num):
         p1_to.append(p1_from.pop())
@@ -133,7 +133,7 @@ for i in instructions:
 for stack in p1:
     p1_out += stack.pop()
 
-for stack in p2_stacks:
+for stack in p2:
     p2_out += stack.pop()
 
 print("Puzzle 1 - ",p1_out)
