@@ -55,7 +55,6 @@ def start_of(buf, size):
             s = set(buf[i:end])
             if len(s) == size:
                 return end
-    return
 
 print("Puzzle 1 characters processed before start of packet marker - ",start_of(buffer,4))
 print("Puzzle 2 characters processed before start of message marker - ",start_of(buffer,14))
