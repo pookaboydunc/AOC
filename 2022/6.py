@@ -51,7 +51,7 @@ buffer = open(input).read()
 def start_of(buf, size):
     for i,_ in enumerate(buf):
         end = i+size
-        if len(set(buf[i:i+size])) == size:
+        if len(set(buf[i:end])) == size:
             return end
 
 print("Puzzle 1 characters processed before start of packet marker - ",start_of(buffer,4))
