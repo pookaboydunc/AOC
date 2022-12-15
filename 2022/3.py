@@ -60,18 +60,17 @@ Find the item type that corresponds to the badges of each three-Elf group. What 
 
 input = 'input/3.txt'
 lines = open(input).read().split("\n")
-items = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 total = 0
 grouptotal = 0
+get_index = lambda a: ord(a) - 96 if a.islower() else ord(a) - 38
 
 for line in lines:
-    split = int(len(line)/2)
-    total += sum([items.index(element) + 1 for element in set(line[:split]) & set(line[split:])])
+    total += sum([get_index(element) for element in set(line[:len(line)//2]) & set(line[len(line)//2:])])
 
 groups = [lines[i:i+3] for i in range(0, len(lines), 3)]
 for group in groups:
     if len(group) == 3:
-        grouptotal += sum([items.index(element) + 1 for element in set(group[0]) & set(group[1]) & set(group[2])])
+        grouptotal += sum([get_index(element) for element in set(group[0]) & set(group[1]) & set(group[2])])
         
 
 print("Puzzle 1 - Total priorities =", total)

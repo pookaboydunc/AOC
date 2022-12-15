@@ -103,38 +103,64 @@ input = 'input/5.txt'
 init_stacks = lambda n: [[] for i in range(0,n)]
 lines = open(input).read().split('\n')
 drawing = lines[:8]
-instructions = [re.findall(r'[0-9]{1,2}',instruction) for instruction in lines[10:len(lines)-1]]
-p1 = init_stacks(9)
-p2 = init_stacks(9)
-p1_out = ''
-p2_out = ''
+instructions = [re.findall(r'[0-9]+',instruction) for instruction in lines[10:len(lines)-1]]
 
-for row in drawing:
-    for i in range(0,len(row),4):
-        index = int(i / 4)
-        crate = row[i+1:i+2]
-        if crate > '   ':
-            p1[index].insert(0,crate)
-            p2[index].insert(0,crate)
 
-for i in instructions:
-    from_stack = int(i[1])-1
-    to_stack = int(i[2])-1
-    num = int(i[0])
-    p1_from = p1[from_stack]
-    p1_to = p1[to_stack]
-    p2_from = p2[from_stack]
-    p2_to = p2[to_stack]
-    p2_to += p2_from[len(p2_from) - int(i[0]):]
-    for n in range(num):
-        p1_to.append(p1_from.pop())
-        p2_from.pop()
+def crate_mover(model, stacknum):
+    out = ''
+    stacks = [[] for i in range(0,stacknum)]
+    for row in drawing:
+        for i in range(0,len(row),4):
+            index = int(i / 4)
+            crate = row[i+1:i+2]
+            if crate > '   ':
+                stacks[index].insert(0,crate)
+    print(stacks)
+    for i in instructions:
+        num = int(i[0])
+        from_stack = stacks[int(i[1])-1]
+        to_stack = stacks[int(i[2])-1]
+        if model == 9001:
+            to_stack += from_stack[len(from_stack) - int(i[0]):]
+        for n in range(num):
+            to_stack.append(from_stack.pop()) if model == 9001 else from_stack.pop()
+    
+    for stack in stacks:
+        out += stack.pop()
+    return out
 
-for stack in p1:
-    p1_out += stack.pop()
 
-for stack in p2:
-    p2_out += stack.pop()
+# p1 = init_stacks(9)
+# p2 = init_stacks(9)
+# p1_out = ''
+# p2_out = ''
 
-print("Puzzle 1 - ",p1_out)
-print("Puzzle 2 - ",p2_out)
+# for row in drawing:
+#     for i in range(0,len(row),4):
+#         index = int(i / 4)
+#         crate = row[i+1:i+2]
+#         if crate > '   ':
+#             p1[index].insert(0,crate)
+#             p2[index].insert(0,crate)
+
+# for i in instructions:
+#     from_stack = int(i[1])-1
+#     to_stack = int(i[2])-1
+#     num = int(i[0])
+#     p1_from = p1[from_stack]
+#     p1_to = p1[to_stack]
+#     p2_from = p2[from_stack]
+#     p2_to = p2[to_stack]
+#     p2_to += p2_from[len(p2_from) - int(i[0]):]
+#     for n in range(num):
+#         p1_to.append(p1_from.pop())
+#         p2_from.pop()
+
+# for stack in p1:
+#     p1_out += stack.pop()
+
+# for stack in p2:
+#     p2_out += stack.pop()
+
+print("Puzzle 1 - ",crate_mover(9000,9))
+print("Puzzle 2 - ",crate_mover(900,9))
