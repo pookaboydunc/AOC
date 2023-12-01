@@ -39,12 +39,12 @@ Your puzzle answer was 1771.
 ## Solutions
 ### Part 1
 #### #1
-Split line by `(` and get number of fields. Take length of the line minus the number of feilds to find number of `)`. subtracted the later from the former gives the floor number.
+Split line by `(` and get number of fields. Take length of the line minus the number of fields to find number of `)`. Subtracting the later from the former gives the floor number.
 ```awk
 awk -F\( '{print (NF-1) - (length - (NF-1))}' input.txt
 ```
 #### #2
-Same as above except calulating numbers of open and closed parens using gsub.
+Same as above except calulating numbers of open and closed parens using gsub().
 ```awk
 awk '{print gsub(/\(/,1,$1) - gsub(/\)/,1,$1)}' input.txt
 ```
@@ -56,7 +56,7 @@ awk '{f=0; split($1,a,""); for (key in a) if(sub(/\(/,1,a[key])==1) f++; else f-
 
 ### Part 2
 #### #1
-Similar to the last solution of part but this time checking for `f == -1` and also using the return of split to dictate for loop and index of the -1 floor.
+Similar to the last solution of part 1 but this time checking for `f == -1` and also using the return of split to dictate for loop and index of the `-1` floor.
 ```awk
 awk '{f=0; len=split($1,a,""); for (i=1; i <=len; i++) if(a[i]=="(") f++; else if ((f-1) == -1) break; else f--; print i}' input.txt
 ```
